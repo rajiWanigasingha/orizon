@@ -3,6 +3,7 @@ import QtQuick
 import "theme/color" as ThemeColor
 import "components/search"
 import "components/searchItem"
+import "components/footer"
 
 PanelWindow {
     id: window
@@ -21,6 +22,9 @@ PanelWindow {
             anchors.fill: parent
             Search {}
             SearchItem {}
+        }
+        Footer {
+            anchors.bottom: parent.bottom
         }
     }
 }
