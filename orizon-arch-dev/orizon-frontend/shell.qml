@@ -1,12 +1,14 @@
 import Quickshell
 import QtQuick
 import "theme/color" as ThemeColor
-import "components/search" 1.0
+import "components/search"
+import "components/searchItem"
 
 PanelWindow {
-    implicitWidth: 900;
-    implicitHeight: 600;
-    color: "transparent";
+    id: window
+    implicitWidth: 900
+    implicitHeight: 600
+    color: "transparent"
     focusable: true
 
     Rectangle {
@@ -14,6 +16,11 @@ PanelWindow {
         anchors.fill: parent
         radius: 12
 
-        Search {}
+        Column {
+            spacing: 24
+            anchors.fill: parent
+            Search {}
+            SearchItem {}
+        }
     }
 }
