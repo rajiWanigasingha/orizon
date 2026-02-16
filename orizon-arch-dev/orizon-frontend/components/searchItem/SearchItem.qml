@@ -19,10 +19,12 @@ Column {
 
             Row {
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.left : parent.left
+                anchors.left: parent.left
                 anchors.leftMargin: 12
+                spacing: 12
 
                 Image {
+                    id: search_image
                     source: Qt.resolvedUrl("../../icons/default-application.svg")
                     width: 48
                     height: 48
@@ -34,12 +36,32 @@ Column {
                     fillMode: Image.PreserveAspectFit
                 }
                 Column {
+                    anchors.verticalCenter: parent.verticalCenter
+
                     Row {
+                        spacing: 8
+
                         Text {
                             text: "Application Name"
-                            font.pixelSize: 16
-                            font.weight: 800
+                            font.pixelSize: 18
+                            font.weight: 700
                             color: ThemeColor.Color.text
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Rectangle {
+                            implicitWidth: 66
+                            implicitHeight: 18
+                            radius: 10
+                            color: ThemeColor.Color.link
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            Text {
+                                text: "Pacman"
+                                font.pixelSize: 11
+                                font.weight: 600
+                                anchors.centerIn: parent
+                                color: ThemeColor.Color.text
+                            }
                         }
                     }
                     Text {
@@ -48,6 +70,24 @@ Column {
                         font.weight: 400
                         color: ThemeColor.Color.disabledFg
                     }
+                }
+            }
+
+            Rectangle {
+                implicitWidth: 102
+                implicitHeight: 23
+                radius: 10
+                color: ThemeColor.Color.darkFill
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 12
+
+                Text {
+                    text: "SHIFT + 1"
+                    font.pixelSize: 11
+                    font.weight: 500
+                    anchors.centerIn: parent
+                    color: ThemeColor.Color.text
                 }
             }
         }

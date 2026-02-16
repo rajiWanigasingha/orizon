@@ -31,6 +31,7 @@ Singleton {
     readonly property color dropTarget: "#4e9a06"
     readonly property color link: "#3584e4"
     readonly property color linkVisited: "#1b6bcb"
+    readonly property color darkFill: "#282828"
     readonly property color osdBg: "#252525"
     readonly property color osdFg: "#eeeeec"
     readonly property color osdText: "#ffffff"
