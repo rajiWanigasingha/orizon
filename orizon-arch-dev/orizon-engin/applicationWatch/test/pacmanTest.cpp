@@ -2,7 +2,7 @@
 // Created by rajindawanigasingha on 2/17/26.
 //
 #include "pacmanTest.h"
-#include  "../pacman/pacman.h"
+#include  "../pacman/Pacman.h"
 #include <gtest/gtest.h>
 
 TEST(PACMANTEST ,getHomeFile){
@@ -22,4 +22,8 @@ TEST(PACMANTEST ,getApplicationPath){
     for (const auto& application_path : p.getApplicationPaths()) {
         cout << application_path << endl;
     }
+}
+
+TEST(PACMAN ,getFilePaths){
+    Pacman pacman;
 }

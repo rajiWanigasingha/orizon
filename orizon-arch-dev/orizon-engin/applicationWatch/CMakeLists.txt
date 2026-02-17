@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(applicationWatch
         main.cpp
-        pacman/pacman.cpp
+        pacman/Pacman.cpp
 )
 
 include(FetchContent)
@@ -19,7 +19,7 @@ enable_testing()
 
 add_executable(MyTests
         test/pacmanTest.cpp
-        pacman/pacman.cpp
+        pacman/Pacman.cpp
 )
 
 target_include_directories(MyTests
