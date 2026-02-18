@@ -5,44 +5,39 @@
 #ifndef APPLICATIONWATCH_PACMAN_H
 #define APPLICATIONWATCH_PACMAN_H
 #include <array>
+#include <optional>
 #include <string>
 #include <vector>
 
 using namespace std;
 
 namespace Desktop_Application{
-
-    enum class ApplicationType {
-        Application,
-        Link,
-        Directory
-    };
-
     struct Desktop_Info {
-        string applicationName;
-        string genericApplicationName;
-        string applicationDescription;
-        ApplicationType applicationType;
-        float applicationVersion;
-        string applicationIcons;
-        bool deleted;
-        bool doNotDisplay;
-        string onlyShowIn;
-        string dontShowId;
-        bool dbusActivatable;
-        string tryExec;
-        string executablePath;
-        string path;
-        bool runApplicationInTerminal;
-        string actions;
-        string mimeType;
-        string categories;
-        string keywords;
-        bool startUpNotification;
-        string startUpWMClass;
-        bool PrefersNonDefaultGPU;
-        bool SingleMainWindow;
+        std::string applicationName;
+        std::optional<std::string> genericApplicationName;
+        std::optional<std::string> applicationDescription;
+        std::string applicationType;
+        std::optional<float> applicationVersion;
+        std::optional<std::string> applicationIcons;
+        std::optional<bool> deleted;
+        std::optional<bool> doNotDisplay;
+        std::optional<std::string> onlyShowIn;
+        std::optional<std::string> dontShowId;
+        std::optional<bool> dbusActivatable;
+        std::optional<std::string> tryExec;
+        std::optional<std::string> executablePath;
+        std::optional<std::string> path;
+        std::optional<bool> runApplicationInTerminal;
+        std::optional<std::string> actions;
+        std::optional<std::string> mimeType;
+        std::optional<std::string> categories;
+        std::optional<std::string> keywords;
+        std::optional<bool> startUpNotification;
+        std::optional<std::string> startUpWMClass;
+        std::optional<bool> PrefersNonDefaultGPU;
+        std::optional<bool> SingleMainWindow;
     };
+
 }
 
 class Pacman_application_handel_files {
@@ -62,11 +57,13 @@ class Pacman {
     private:
         array<string ,3> filePaths;
 
-        vector<string> getAllPathForDotDesktopFiles() const;
+        vector<Desktop_Application::Desktop_Info> applications;
 
-        static void filterOutApplicationInformation(const vector<string>& paths);
+        [[nodiscard]] vector<string> getAllPathForDotDesktopFiles() const;
 
-        static void parseDotDesktopFiles(const string& dotDesktopFile);
+        void filterOutApplicationInformation(const vector<string>& paths);
+
+        void parseDotDesktopFiles(const vector<string>& dotDesktopFile);
 
     public:
         Pacman();
