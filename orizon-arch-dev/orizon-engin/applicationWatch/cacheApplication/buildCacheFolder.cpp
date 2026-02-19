@@ -23,7 +23,7 @@ void BuildCacheFolder::createDbFile() {
 
     const std::string cacheFolder = getCacheFolder();
 
-    if (const std::string dbFile = cacheFolder + "applicationWatchCache.sqlite"; !std::filesystem::exists(dbFile)) {
+    if (const std::string dbFile = cacheFolder + "applicationWatchCache.json"; !std::filesystem::exists(dbFile)) {
         if (const std::ofstream file(dbFile, std::ios::out | std::ios::app); !file) {
             std::cerr << "Failed to create file: " << dbFile << "\n";
             return;
@@ -38,5 +38,5 @@ void BuildCacheFolder::buildCache(){
 }
 
 std::string BuildCacheFolder::getCacheFilePath(){
-    return getCacheFolder() + "applicationWatchCache.sqlite";
+    return getCacheFolder() + "applicationWatchCache.json";
 }

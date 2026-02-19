@@ -7,7 +7,9 @@
 #include <iostream>
 #include <algorithm>
 #include <cctype>
-#include <cctype>
+#include <nlohmann/json.hpp>
+
+#include "../cacheApplication/buildCacheFolder.h"
 
 using namespace std;
 
@@ -77,15 +79,11 @@ void Pacman::filterOutApplicationInformation(const vector<string>& paths){
             dotDesktopFile.push_back(desktop_content);
         }
 
-        cout << "Read file " << path << endl;
-
-        parseDotDesktopFiles(dotDesktopFile);
-
-        cout << "---------------------------------------------------------------------" << endl;
+        parseDotDesktopFiles(dotDesktopFile ,path);
     }
 }
 
-void Pacman::parseDotDesktopFiles(const vector<string>& dotDesktopFile){
+void Pacman::parseDotDesktopFiles(const vector<string>& dotDesktopFile ,const std::string filePath){
     Desktop_Application::Desktop_Info desktop_info;
 
     if (dotDesktopFile.empty()) {
@@ -176,8 +174,12 @@ void Pacman::parseDotDesktopFiles(const vector<string>& dotDesktopFile){
             desktop_info.categories = category;
         }else if (key == "keywords") {
             desktop_info.keywords = value;
+        } else if (key == "terminal") {
+            desktop_info.runApplicationInTerminal = value == "true";
         }
     }
+
+    desktop_info.dotDesktopFilePath = filePath;
 
     this->applications.push_back(desktop_info);
 }
@@ -192,15 +194,31 @@ Pacman::Pacman(){
     filterOutApplicationInformation(paths);
 }
 
-void Pacman::writeIntoCacheFile(){
-
-    for (const auto& application : this->applications) {
-
-        if (application.applicationType == "Application" && application.applicationName != "Unknown"  && !application.deleted) {
+void Pacman::writeIntoCacheFile() const{
 
 
+    nlohmann::json jsonObj = nlohmann::json::array();
 
+    for (const auto & application : applications) {
+        if (application.applicationType == "Application" && !application.deleted && application.applicationName != "Unknown") {
+            nlohmann::json json_object;
+
+            json_object["dotDesktopFilePath"] = application.dotDesktopFilePath;
+            json_object["applicationName"] = application.applicationName;
+            json_object["applicationVersion"] = application.applicationVersion;
+            json_object["genericApplicationName"] = application.genericApplicationName;
+            json_object["applicationDescription"] = application.applicationDescription;
+            json_object["applicationIcons"] = application.applicationIcons;
+            json_object["categories"] = application.categories;
+            json_object["keywords"] = application.keywords;
+            json_object["mimeType"] = application.mimeType;
+
+            jsonObj.push_back(json_object);
         }
-
     }
+
+    std::ofstream file(BuildCacheFolder::getCacheFilePath());
+
+    file << jsonObj.dump(4);
 }
+

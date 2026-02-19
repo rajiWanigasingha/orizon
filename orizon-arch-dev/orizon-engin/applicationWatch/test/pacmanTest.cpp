@@ -28,6 +28,8 @@ TEST(PACMANTEST ,getApplicationPath){
 
 TEST(PACMAN ,getFilePaths){
     Pacman pacman;
+
+    pacman.writeIntoCacheFile();
 }
 
 TEST(BUILDCACHEFOLDER, createAndGetCacheDB){

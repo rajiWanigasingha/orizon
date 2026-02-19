@@ -13,6 +13,7 @@ using namespace std;
 
 namespace Desktop_Application{
     struct Desktop_Info {
+        std::optional<std::string> dotDesktopFilePath;
         std::string applicationType = "Unknown";
         std::string applicationName = "Unknown";
         std::optional<std::string> genericApplicationName;
@@ -52,12 +53,11 @@ class Pacman {
 
         void filterOutApplicationInformation(const vector<string>& paths);
 
-        void parseDotDesktopFiles(const vector<string>& dotDesktopFile);
+        void parseDotDesktopFiles(const vector<string>& dotDesktopFile ,const std::string filePath);
 
     public:
         Pacman();
-
-        void writeIntoCacheFile();
+        void writeIntoCacheFile() const;
 
 
 

@@ -20,16 +20,27 @@ add_executable(applicationWatch
         main.cpp
 )
 
+include(FetchContent)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+target_link_libraries(PacmanLib
+        PUBLIC nlohmann_json::nlohmann_json
+)
+
 target_link_libraries(applicationWatch
         PRIVATE PacmanLib
 )
 
 # --- Step 3: Fetch GoogleTest ---
 include(FetchContent)
+
 FetchContent_Declare(
         googletest
         URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
 )
+
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
