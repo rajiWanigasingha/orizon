@@ -3,11 +3,28 @@ project(applicationWatch)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(applicationWatch
-        main.cpp
+# --- Step 1: Create a library for your code ---
+add_library(PacmanLib
         pacman/Pacman.cpp
+        pacman/Pacman.h
+        cacheApplication/buildCacheFolder.cpp
+        cacheApplication/buildCacheFolder.h
 )
 
+target_include_directories(PacmanLib
+        PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/pacman
+)
+
+# --- Step 2: Main executable ---
+add_executable(applicationWatch
+        main.cpp
+)
+
+target_link_libraries(applicationWatch
+        PRIVATE PacmanLib
+)
+
+# --- Step 3: Fetch GoogleTest ---
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -17,20 +34,17 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+# --- Step 4: Test executable ---
 add_executable(MyTests
         test/pacmanTest.cpp
-        pacman/Pacman.cpp
-)
-
-target_include_directories(MyTests
-        PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/pacman
 )
 
 target_link_libraries(MyTests
         PRIVATE
+        PacmanLib       # Link your code
         GTest::gtest_main
 )
 
+# --- Step 5: Discover tests ---
 include(GoogleTest)
 gtest_discover_tests(MyTests)

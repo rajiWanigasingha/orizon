@@ -13,29 +13,18 @@ using namespace std;
 
 namespace Desktop_Application{
     struct Desktop_Info {
-        std::string applicationName;
+        std::string applicationType = "Unknown";
+        std::string applicationName = "Unknown";
         std::optional<std::string> genericApplicationName;
         std::optional<std::string> applicationDescription;
-        std::string applicationType;
         std::optional<float> applicationVersion;
         std::optional<std::string> applicationIcons;
         std::optional<bool> deleted;
         std::optional<bool> doNotDisplay;
-        std::optional<std::string> onlyShowIn;
-        std::optional<std::string> dontShowId;
-        std::optional<bool> dbusActivatable;
-        std::optional<std::string> tryExec;
-        std::optional<std::string> executablePath;
-        std::optional<std::string> path;
         std::optional<bool> runApplicationInTerminal;
-        std::optional<std::string> actions;
         std::optional<std::string> mimeType;
-        std::optional<std::string> categories;
+        std::optional<std::vector<std::string>> categories;
         std::optional<std::string> keywords;
-        std::optional<bool> startUpNotification;
-        std::optional<std::string> startUpWMClass;
-        std::optional<bool> PrefersNonDefaultGPU;
-        std::optional<bool> SingleMainWindow;
     };
 
 }
@@ -67,6 +56,8 @@ class Pacman {
 
     public:
         Pacman();
+
+        void writeIntoCacheFile();
 
 
 

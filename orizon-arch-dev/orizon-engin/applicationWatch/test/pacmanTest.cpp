@@ -5,7 +5,9 @@
 #include  "../pacman/Pacman.h"
 #include <gtest/gtest.h>
 
-TEST(PACMANTEST ,getHomeFile){
+#include "../cacheApplication/buildCacheFolder.h"
+
+TEST(PACMANTEST, getHomeFile){
 
     Pacman_application_handel_files p;
 
@@ -26,4 +28,10 @@ TEST(PACMANTEST ,getApplicationPath){
 
 TEST(PACMAN ,getFilePaths){
     Pacman pacman;
+}
+
+TEST(BUILDCACHEFOLDER, createAndGetCacheDB){
+    BuildCacheFolder::buildCache();
+
+    cout << BuildCacheFolder::getCacheFilePath() << endl;
 }

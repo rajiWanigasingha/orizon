@@ -136,7 +136,20 @@ void Pacman::parseDotDesktopFiles(const vector<string>& dotDesktopFile){
         else if (key == "name") {
             desktop_info.applicationName = value;
         }else if (key == "version") {
-            desktop_info.applicationVersion = std::stof(value);
+
+            std::optional<float> number = NULL;
+
+            try {
+                number = std::stof(value);
+            }
+            catch (const std::invalid_argument& e) {
+                number = NULL;
+            }
+            catch (const std::out_of_range& e) {
+                number = NULL;
+            }
+
+            desktop_info.applicationVersion = number;
         }else if (key == "genericname") {
             desktop_info.genericApplicationName = value;
         }else if (key == "nodisplay") {
@@ -147,36 +160,22 @@ void Pacman::parseDotDesktopFiles(const vector<string>& dotDesktopFile){
             desktop_info.applicationIcons = value;
         }else if (key == "hidden") {
             desktop_info.deleted = value == "true";
-        }else if (key == "onlyshowin") {
-            desktop_info.onlyShowIn = value;
-        }else if (key == "notshowin") {
-            desktop_info.dontShowId = value;
-        }else if (key == "dbusactivatable") {
-            desktop_info.dbusActivatable = value == "true";
-        }else if (key == "tryexec") {
-            desktop_info.tryExec = value;
-        }else if (key == "exec") {
-            desktop_info.executablePath = value;
-        }else if (key == "path") {
-            desktop_info.path = value;
-        }else if (key  == "terminal") {
-            desktop_info.runApplicationInTerminal = (value == "true");
-        }else if (key == "action") {
-            desktop_info.actions = value;
         }else if (key == "mimetype") {
             desktop_info.mimeType = value;
         }else if (key == "categories") {
-            desktop_info.categories = value;
+
+            vector<string> category;
+
+            for (const char findBreak : value) {
+                if (findBreak == ';') {
+                    category.push_back(value.substr(0, value.find_first_of(';')));
+                    value.erase(0, value.find_first_of(';') + 1);
+                }
+            }
+
+            desktop_info.categories = category;
         }else if (key == "keywords") {
             desktop_info.keywords = value;
-        }else if (key == "startupnotify") {
-            desktop_info.startUpNotification = value == "true";
-        }else if (key == "startupwmclass") {
-            desktop_info.startUpWMClass   = value;
-        }else if (key == "prefersnondefaultgpu") {
-            desktop_info.PrefersNonDefaultGPU = value == "true";
-        }else if (key == "singlemainwindow") {
-            desktop_info.SingleMainWindow = value == "true";
         }
     }
 
@@ -191,12 +190,17 @@ Pacman::Pacman(){
     const vector<string> paths = this->getAllPathForDotDesktopFiles();
 
     filterOutApplicationInformation(paths);
+}
+
+void Pacman::writeIntoCacheFile(){
 
     for (const auto& application : this->applications) {
-        std::cout << application.applicationName << std::endl;
-        std::cout << application.applicationDescription.value_or("N/A") << std::endl;
-        std::cout << application.applicationVersion.value_or(0.0f) << std::endl;
-        std::cout << application.keywords.value_or("N/A") << std::endl;
-        cout << "______________________________________" << endl;
+
+        if (application.applicationType == "Application" && application.applicationName != "Unknown"  && !application.deleted) {
+
+
+
+        }
+
     }
 }
