@@ -7,6 +7,11 @@
 
 
 class Flatpak {
+    private:
+        void getFlatpakInfo();
+
+    public:
+        Flatpak();
 };
 
 

@@ -20,9 +20,19 @@ PanelWindow {
         Column {
             spacing: 24
             anchors.fill: parent
-            Search {}
-            SearchItem {}
+            Search {
+                id: search
+            }
+            SearchItem {
+                anchors.top: search.bottom
+                anchors.topMargin: 24
+                anchors.left: parent.left
+                anchors.leftMargin: 24
+                anchors.bottomMargin: 66
+                anchors.bottom: parent.bottom
+            }
         }
+
         Footer {
             anchors.bottom: parent.bottom
         }

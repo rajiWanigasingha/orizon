@@ -200,7 +200,7 @@ void Pacman::writeIntoCacheFile() const{
     nlohmann::json jsonObj = nlohmann::json::array();
 
     for (const auto & application : applications) {
-        if (application.applicationType == "Application" && !application.deleted && application.applicationName != "Unknown") {
+        if (application.applicationType == "Application" && !application.deleted && application.applicationName != "Unknown" && !application.doNotDisplay) {
             nlohmann::json json_object;
 
             json_object["dotDesktopFilePath"] = application.dotDesktopFilePath;

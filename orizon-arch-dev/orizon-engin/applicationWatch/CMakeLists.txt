@@ -9,6 +9,8 @@ add_library(PacmanLib
         pacman/Pacman.h
         cacheApplication/buildCacheFolder.cpp
         cacheApplication/buildCacheFolder.h
+        flatpak/Flatpak.cpp
+        flatpak/Flatpak.h
 )
 
 target_include_directories(PacmanLib
